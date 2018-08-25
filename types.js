@@ -222,7 +222,7 @@ module.exports = function(homebridge) {
       format:   Characteristic.Formats.STRING,
       perms: [ Characteristic.Perms.READ, Characteristic.Perms.WRITE, Characteristic.Perms.NOTIFY ]
     });
-    this.value = null;
+    this.value = this.getDefaultValue();
   };
   CommunityTypes.MediaTypeIdentifier.UUID = '00004002-0000-1000-8000-135D67EC4377';
   inherits(CommunityTypes.MediaTypeIdentifier, Characteristic);
@@ -601,10 +601,22 @@ module.exports = function(homebridge) {
       format:   Characteristic.Formats.STRING,
       perms: [ Characteristic.Perms.READ, Characteristic.Perms.NOTIFY ]
     });
-    this.value = '';
+    this.value = this.getDefaultValue();
   };
   CommunityTypes.NotificationText.UUID = 'e244ca80-813e-423a-86bd-02f293b857a0';
   inherits(CommunityTypes.NotificationText, Characteristic);
+
+// used by Elgato Eve, number of seconds since the epoch...
+  CommunityTypes.LastEventTime = function() {
+    Characteristic.call(this, 'Last Event Time', CommunityTypes.LastEventTime.UUID);
+    this.setProps({
+      format:   Characteristic.Formats.UINT32,
+      perms: [ Characteristic.Perms.READ, Characteristic.Perms.NOTIFY ]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.LastEventTime.UUID = 'E863F11A-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.LastEventTime, Characteristic);
 
   // Services
 
@@ -837,6 +849,7 @@ module.exports = function(homebridge) {
 
     // Optional Characteristics
     this.addOptionalCharacteristic(Characteristic.Name);
+    this.addOptionalCharacteristic(CommunityTypes.LastEventTime);
   };
   CommunityTypes.NotificationService.UUID = '074D8CE9-5B4B-48D5-9990-D98850C2F3FE';
   inherits(CommunityTypes.NotificationService, Service);
