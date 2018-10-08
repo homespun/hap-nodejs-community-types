@@ -1,11 +1,13 @@
 var inherits = require('util').inherits;
 var Service, Characteristic;
 
-module.exports = function(homebridge) {
+module.exports = function(homebridge, options) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
 
   var CommunityTypes = {};
+
+  if (!options) options = {};
 
 
   // Characteristics
@@ -617,6 +619,70 @@ module.exports = function(homebridge) {
   };
   CommunityTypes.LastEventTime.UUID = 'E863F11A-079E-48FF-8F27-9C2605A29F52';
   inherits(CommunityTypes.LastEventTime, Characteristic);
+
+// courtesy of https://github.com/SeydX/homebridge-broadband
+
+  CommunityTypes.DownloadSpeed = function() {
+    Characteristic.call(this, 'Download Speed', CommunityTypes.DownloadSpeed.UUID);
+    this.setProps({
+      format: Characteristic.Formats.FLOAT,
+      unit: (options.units && options.units.DownloadSpeed) || 'Mbps',
+      maxValue: 1024,
+      minValue: 0,
+      minStep: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.DownloadSpeed.UUID = 'DA70DA1F-DA72-4DB3-81C2-99F158A15A9A';
+  inherits(CommunityTypes.DownloadSpeed, Characteristic);
+
+  CommunityTypes.UploadSpeed = function() {
+    Characteristic.call(this, 'Upload Speed', CommunityTypes.UploadSpeed.UUID);
+    this.setProps({
+      format: Characteristic.Formats.FLOAT,
+      unit: 'Mbps',
+      maxValue: 1024,
+      minValue: 0,
+      minStep: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.UploadSpeed.UUID = 'AB74289E-D516-4A12-B2AE-1B32A74C035F';
+  inherits(CommunityTypes.UploadSpeed, Characteristic);
+
+  CommunityTypes.Ping = function() {
+    Characteristic.call(this, 'Ping', CommunityTypes.Ping.UUID);
+    this.setProps({
+      format: Characteristic.Formats.INT,
+      unit: 'ms',
+      maxValue: 999,
+      minValue: 0,
+      minStep: 1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.Ping.UUID = 'CC65A09A-E052-410C-981D-C11BDE2C3F60';
+  inherits(CommunityTypes.Ping, Characteristic);
+
+
+  CommunityTypes.Latency = function() {
+    Characteristic.call(this, 'Latency', CommunityTypes.Latency.UUID);
+    this.setProps({
+      format: Characteristic.Formats.INT,
+      unit: 'ms',
+      maxValue: 999,
+      minValue: 0,
+      minStep: 0.001,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.Latency.UUID = '60EC80F9-F799-4E8E-B613-098E7EBCBB0B';
+  inherits(CommunityTypes.Latency, Characteristic);
+
 
   // Services
 
