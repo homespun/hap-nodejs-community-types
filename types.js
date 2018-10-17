@@ -357,6 +357,21 @@ module.exports = function(homebridge, options) {
   CommunityTypes.BatteryLevel.UUID = 'E863F11B-079E-48FF-8F27-9C2605A29F52';
   inherits(CommunityTypes.BatteryLevel, Characteristic);
 
+  CommunityTypes.EveAirQuality = function () {
+    Characteristic.call(this, 'Eve Air Quality', CommunityTypes.EveAirQuality.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT16,
+      unit: "ppm",
+      maxValue: 5000,
+      minValue: 0,
+      minStep: 1,
+      perms: [ Characteristic.Perms.READ, Characteristic.Perms.NOTIFY ],
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveAirQuality.UUID = 'E863F10B-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveAirQuality, Characteristic);
+
 // courtesy of https://github.com/robi-van-kinobi/homebridge-cubesensors
 
   CommunityTypes.AtmosphericPressureLevel = function () {
