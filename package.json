@@ -1,6 +1,6 @@
 {
   "name": "hap-nodejs-community-types",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A collection of extension HAP Service and Characteristic types known to be used by HomeKit apps and accessories, for use with the HAP-NodeJS library.",
   "main": "types.js",
   "scripts": {
