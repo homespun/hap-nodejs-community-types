@@ -376,6 +376,69 @@ module.exports = function(homebridge, options) {
   inherits(CommunityTypes.EveAirQuality, Characteristic);
 
 
+// courtesy of https://github.com/ebaauw/homebridge-lib
+// i should probably submit a PR for everything here that isn't in that repo...
+
+  CommunityTypes.EveOpenDuration = function () {
+    Characteristic.call(this, 'Eve Open Duration', CommunityTypes.EveOpenDuration.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT32,
+      unit: Characteristic.Units.SECONDS, // since last reset
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY, Characteristic.Perms.WRITE]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveOpenDuration.UUID = 'E863F118-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveOpenDuration, Characteristic);
+
+  CommunityTypes.EveClosedDuration = function () {
+    Characteristic.call(this, 'Eve Closed Duration', CommunityTypes.EveClosedDuration.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT32,
+      unit: Characteristic.Units.SECONDS, // since last reset
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY, Characteristic.Perms.WRITE]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveClosedDuration.UUID = 'E863F119-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveClosedDuration, Characteristic);
+
+  CommunityTypes.EveLastActivation = function () {
+    Characteristic.call(this, 'Eve Last Activation', CommunityTypes.EveLastActivation.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT32,
+      unit: Characteristic.Units.SECONDS, // since last reset
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveLastActivation.UUID = 'E863F11A-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveLastActivation, Characteristic);
+
+  CommunityTypes.EveTimesOpened = function () {
+    Characteristic.call(this, 'Eve Times Opened', CommunityTypes.EveTimesOpened.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT32,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveTimesOpened.UUID = 'E863F129-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveTimesOpened, Characteristic);
+
+  CommunityTypes.EveResetTotal = function () {
+    Characteristic.call(this, 'Eve Reset Total', CommunityTypes.EveResetTotal.UUID);
+    this.setProps({
+      format: Characteristic.Formats.UINT32,
+      unit: Characteristic.Units.SECONDS, // since 2001/01/01
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY, Characteristic.Perms.WRITE]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.EveResetTotal.UUID = 'E863F112-079E-48FF-8F27-9C2605A29F52';
+  inherits(CommunityTypes.EveResetTotal, Characteristic);
+
+
 // courtesy of https://github.com/robi-van-kinobi/homebridge-cubesensors
 
   CommunityTypes.AtmosphericPressureLevel = function () {
@@ -472,6 +535,7 @@ module.exports = function(homebridge, options) {
 
 
 // courtesy of https://github.com/homespun/homebridge-platform-aqe
+
   CommunityTypes.OzoneDetected = function () {
     Characteristic.call(this, 'Ozone Detected', CommunityTypes.OzoneDetected.UUID);
     this.setProps({
@@ -689,7 +753,6 @@ module.exports = function(homebridge, options) {
   CommunityTypes.Ping.UUID = 'CC65A09A-E052-410C-981D-C11BDE2C3F60';
   inherits(CommunityTypes.Ping, Characteristic);
 
-
   CommunityTypes.Latency = function() {
     Characteristic.call(this, 'Latency', CommunityTypes.Latency.UUID);
     this.setProps({
@@ -806,6 +869,7 @@ module.exports = function(homebridge, options) {
 
 
 // courtesy of https://github.com/robi-van-kinobi/homebridge-cubesensors
+
   CommunityTypes.AtmosphericPressureSensor = function (displayName, subtype) {
     Service.call(this, displayName, CommunityTypes.AtmosphericPressureSensor.UUID, subtype);
 
@@ -901,6 +965,7 @@ module.exports = function(homebridge, options) {
   CommunityTypes.UPSLoadPercent.UUID = UUID.generate('CommunityTypes:usagedevice:UPSLoadPercent');
   inherits(CommunityTypes.UPSLoadPercent, Characteristic);
 
+
 // courtesy of https://github.com/homespun/homebridge-platform-snmp
 
   CommunityTypes.AirFlowSensor = function (displayName, subtype) {
@@ -939,6 +1004,7 @@ module.exports = function(homebridge, options) {
 
 
 // courtesy of https://github.com/homespun/homebridge-platform-aqe
+
   CommunityTypes.OzoneSensor = function (displayName, subtype) {
     Service.call(this, displayName, CommunityTypes.OzoneSensor.UUID, subtype);
 
