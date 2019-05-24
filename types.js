@@ -866,6 +866,7 @@ module.exports = function(homebridge, options) {
     this.addOptionalCharacteristic(Characteristic.Name);
   };
   CommunityTypes.SecurityCameraService.UUID = '00000005-0000-1000-8000-135D67EC4377';
+  inherits(CommunityTypes.SecurityCameraService, Service);
 
 
 // courtesy of https://github.com/robi-van-kinobi/homebridge-cubesensors
