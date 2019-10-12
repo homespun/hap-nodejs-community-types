@@ -769,6 +769,24 @@ module.exports = function(homebridge, options) {
   inherits(CommunityTypes.Latency, Characteristic);
 
 
+// https://github.com/naofireblade/homebridge-weather-plus
+
+  CommunityTypes.DewPoint = function() {
+    Characteristic.call(this, 'Dew Point', CommunityTypes.DewPoint.UUID);
+    this.setProps({
+      format: Characteristic.Formats.FLOAT,
+      unit: Characteristic.Units.CELSIUS,
+      maxValue: 50,
+      minValue: -50,
+      minStep: 0.1,
+      perms: [Characteristic.Perms.READ, Characteristic.Perms.NOTIFY]
+    });
+    this.value = this.getDefaultValue();
+  };
+  CommunityTypes.DewPoint.UUID = '095c46e2-278e-4e3c-b9e7-364622a0f501';
+  inherits(CommunityTypes.DewPoint, Characteristic);
+
+
   // Services
 
   CommunityTypes.AudioDeviceService = function(displayName, subtype) {
